@@ -2,13 +2,13 @@
 {
     public class Parcel
     {
-        private int Id;
+        //private int Id;
         public string Name;
         public decimal Price;
 
-        public Parcel(int id, string name, decimal price)
+        public Parcel(string name, decimal price)
         {
-            Id = id;
+            //Id = id;
             Name = name;
             Price = price;
         }

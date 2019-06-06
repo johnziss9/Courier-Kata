@@ -4,12 +4,14 @@ namespace CourierKata
 {
     class Program
     {
+
         public static void Main()
         {
             Basket basket = new Basket();
 
             bool stillAddingParcels = true;
             decimal totalPrice = 0;
+            decimal totalShippingPrice = 0;
             int sParcelCount = 0;
             int mParcelCount = 0;
             int lParcelCount = 0;
@@ -28,7 +30,7 @@ namespace CourierKata
                 Console.WriteLine("Type 'clear' to clear your basket.");
                 Console.WriteLine("Type 'exit' to quit the system.");
 
-                string menuInput = Console.ReadLine();
+                string menuInput = Console.ReadLine().ToLower();
                 Console.Clear();
 
                 switch (menuInput)
@@ -47,31 +49,27 @@ namespace CourierKata
                             {
                                 case "1":
                                     Console.WriteLine("Parcel Added");
-                                    Console.WriteLine("Press enter to continue");
-                                    Console.ReadLine();
-                                    basket.AddToBasket(1, "Small Parcel", 3);
+                                    basket.AddToBasket("Small Parcel", 3);
                                     sParcelCount++;
+                                    totalShippingPrice += SpeedyShipping(parcelInput, 3, totalShippingPrice, basket);
                                     break;
                                 case "2":
                                     Console.WriteLine("Parcel Added");
-                                    Console.WriteLine("Press enter to continue");
-                                    Console.ReadLine();
-                                    basket.AddToBasket(2, "Medium Parcel", 8);
+                                    basket.AddToBasket("Medium Parcel", 8);
                                     sParcelCount++;
+                                    totalShippingPrice += SpeedyShipping(parcelInput, 8, totalShippingPrice, basket);
                                     break;
                                 case "3":
                                     Console.WriteLine("Parcel Added");
-                                    Console.WriteLine("Press enter to continue");
-                                    Console.ReadLine();
-                                    basket.AddToBasket(3, "Large Parcel", 15);
+                                    basket.AddToBasket("Large Parcel", 15);
                                     sParcelCount++;
+                                    totalShippingPrice += SpeedyShipping(parcelInput, 15, totalShippingPrice, basket);
                                     break;
                                 case "4":
                                     Console.WriteLine("Parcel Added");
-                                    Console.WriteLine("Press enter to continue");
-                                    Console.ReadLine();
-                                    basket.AddToBasket(4, "XL Parcel", 25);
+                                    basket.AddToBasket("XL Parcel", 25);
                                     sParcelCount++;
+                                    totalShippingPrice += SpeedyShipping(parcelInput, 25, totalShippingPrice, basket);
                                     break;
                                 default:
                                     Console.WriteLine("Wrong input. Please press enter and try again.");
@@ -90,7 +88,7 @@ namespace CourierKata
                             lParcelPrice = lParcelCount * 15;
                             xlParcelPrice = xlParcelCount * 25;
 
-                            totalPrice = sParcelPrice + mParcelPrice + lParcelPrice + xlParcelPrice;
+                            totalPrice = sParcelPrice + mParcelPrice + lParcelPrice + xlParcelPrice + totalShippingPrice;
 
                             if (totalPrice != 0)
                             {
@@ -124,6 +122,36 @@ namespace CourierKata
 
                 }
             }
+        }
+
+        public static decimal SpeedyShipping(string parcelInput, decimal shippingPrice, decimal totalShippingPrice, Basket basket)
+        {
+            Console.WriteLine("Would you like to add speedy shipping?");
+            Console.WriteLine("This will cost double the price of the parcel.");
+            string speedyShippingInput = Console.ReadLine().ToLower();
+
+            if (speedyShippingInput == "yes")
+            {
+                basket.AddToBasket("Speedy Shipping", shippingPrice);
+                totalShippingPrice += shippingPrice;
+                Console.WriteLine("Speedy Shipping Added.");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+            }
+            else if (speedyShippingInput == "no")
+            {
+                totalShippingPrice += 0;
+                Console.WriteLine("Parcel Added with no Speedy Shipping.");
+                Console.WriteLine("Press enter to continue");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Wrong input. Please press enter and try again.");
+                Console.Read();
+            }
+
+            return totalShippingPrice;
         }
     }
 }

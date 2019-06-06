@@ -11,9 +11,9 @@ namespace CourierKata
             parcels = new List<Parcel>();
         }
 
-        public string AddToBasket(int id, string name, decimal price)
+        public string AddToBasket(string name, decimal price)
         {
-            Parcel parcel = new Parcel(id, name, price);
+            Parcel parcel = new Parcel(name, price);
             parcels.Add(parcel);
 
             return parcel.Name + " " + parcel.Price.ToString();
