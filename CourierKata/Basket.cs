@@ -22,7 +22,7 @@ namespace CourierKata
         public IEnumerable<string> GetBasketParcelNames()
         {
             foreach (var parcel in parcels)
-                yield return parcel.Name;
+                yield return parcel.Name + " $" + parcel.Price;
         }
 
         public void Clear()

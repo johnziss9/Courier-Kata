@@ -104,7 +104,11 @@ namespace CourierKata
                     case "view":
                         {
                             foreach (string parcel in basket.GetBasketParcelNames())
+                            {
                                 Console.WriteLine(parcel);
+                            }
+
+                            // Console.WriteLine(parcel);
 
                             sParcelPrice = sParcelCount * 3;
                             mParcelPrice = mParcelCount * 8;
@@ -175,16 +179,6 @@ namespace CourierKata
             }
 
             return totalShippingPrice;
-        }
-
-        public static int ParcelWeight(string parcelInput)
-        {
-            Console.WriteLine("What is the weight of the parcel?");
-            int parcelWeight = Convert.ToInt32(Console.ReadLine());
-
-
-
-            return parcelWeight;
         }
     }
 }
