@@ -4,7 +4,6 @@ namespace CourierKata
 {
     class Program
     {
-
         public static void Main()
         {
             Basket basket = new Basket();
@@ -14,18 +13,16 @@ namespace CourierKata
             decimal mParcelPrice = 0;
             decimal lParcelPrice = 0;
             decimal xlParcelPrice = 0;
+            decimal hParcelPrice = 0;
             decimal totalPrice = 0;
             decimal totalShippingPrice = 0;
             decimal weightPrice = 0;
-            decimal sParcelWeight = 1;
-            decimal mParcelWeight = 3;
-            decimal lParcelWeight = 6;
-            decimal xlParcelWeight = 19;
             decimal parcelWeight = 0;
             int sParcelCount = 0;
             int mParcelCount = 0;
             int lParcelCount = 0;
             int xlParcelCount = 0;
+            int hParcelCount = 0;
 
             while (stillAddingParcels)
             {
@@ -48,6 +45,7 @@ namespace CourierKata
                             Console.WriteLine("2 - Medium Parcel (< 50cm, < 3KG), $8");
                             Console.WriteLine("3 - Large Parcel (< 100cm, < 6KG), $15");
                             Console.WriteLine("4 - XL Parcel (> 100cm, < 10KG), $25");
+                            Console.WriteLine("5 - Heavy Parcel (< 50KG), $50");
                             Console.WriteLine("An additional $2 will be added for each Kg is the parcel is over the corresponded weight.");
 
                             string parcelInput = Console.ReadLine();
@@ -57,7 +55,7 @@ namespace CourierKata
                                 case "1":
                                     Console.WriteLine("What is the weight of the parcel?");
                                     parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 1 ? weightPrice = 0 : weightPrice = (parcelWeight - 1) * 2;
+                                    weightPrice += parcelWeight <= 1 ? 0 : (parcelWeight - 1) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Small Parcel", 3);
                                     sParcelCount++;
@@ -67,32 +65,42 @@ namespace CourierKata
                                 case "2":
                                     Console.WriteLine("What is the weight of the parcel?");
                                     parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 3 ? weightPrice = 0 : weightPrice = (parcelWeight - 1) * 2;
+                                    weightPrice += parcelWeight <= 3 ? 0 : (parcelWeight - 3) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Medium Parcel", 8);
-                                    sParcelCount++;
+                                    mParcelCount++;
                                     basket.AddToBasket("Additional Weight Cost", weightPrice);
                                     totalShippingPrice += SpeedyShipping(parcelInput, 8, totalShippingPrice, basket);
                                     break;
                                 case "3":
                                     Console.WriteLine("What is the weight of the parcel?");
                                     parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 6 ? weightPrice = 0 : weightPrice = (parcelWeight - 1) * 2;
+                                    weightPrice += parcelWeight <= 6 ? 0 : (parcelWeight - 6) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Large Parcel", 15);
-                                    sParcelCount++;
+                                    lParcelCount++;
                                     basket.AddToBasket("Additional Weight Cost", weightPrice);
                                     totalShippingPrice += SpeedyShipping(parcelInput, 15, totalShippingPrice, basket);
                                     break;
                                 case "4":
                                     Console.WriteLine("What is the weight of the parcel?");
                                     parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 10 ? weightPrice = 0 : weightPrice = (parcelWeight - 1) * 2;
+                                    weightPrice += parcelWeight <= 10 ? 0 : (parcelWeight - 10) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("XL Parcel", 25);
-                                    sParcelCount++;
+                                    xlParcelCount++;
                                     basket.AddToBasket("Additional Weight Cost", weightPrice);
                                     totalShippingPrice += SpeedyShipping(parcelInput, 25, totalShippingPrice, basket);
+                                    break;
+                                case "5":
+                                    Console.WriteLine("What is the weight of the parcel?");
+                                    parcelWeight = Convert.ToDecimal(Console.ReadLine());
+                                    weightPrice += parcelWeight <= 50 ? 0 : (parcelWeight - 50) * 1;
+                                    Console.WriteLine("Parcel Added");
+                                    basket.AddToBasket("Heavy Parcel", 50);
+                                    hParcelCount++;
+                                    basket.AddToBasket("Additional Weight Cost", weightPrice);
+                                    totalShippingPrice += SpeedyShipping(parcelInput, 50, totalShippingPrice, basket);
                                     break;
                                 default:
                                     Console.WriteLine("Wrong input. Please press enter and try again.");
@@ -104,18 +112,16 @@ namespace CourierKata
                     case "view":
                         {
                             foreach (string parcel in basket.GetBasketParcelNames())
-                            {
                                 Console.WriteLine(parcel);
-                            }
-
-                            // Console.WriteLine(parcel);
 
                             sParcelPrice = sParcelCount * 3;
                             mParcelPrice = mParcelCount * 8;
                             lParcelPrice = lParcelCount * 15;
                             xlParcelPrice = xlParcelCount * 25;
+                            hParcelPrice = hParcelCount * 50;
 
-                            totalPrice = sParcelPrice + mParcelPrice + lParcelPrice + xlParcelPrice + totalShippingPrice + weightPrice;
+                            totalPrice = sParcelPrice + mParcelPrice + lParcelPrice + xlParcelPrice 
+                                + hParcelPrice + totalShippingPrice + weightPrice;
 
                             if (totalPrice != 0)
                             {
@@ -136,6 +142,7 @@ namespace CourierKata
                         }
                     case "clear":
                         basket.Clear();
+                        totalPrice = 0;
                         Console.WriteLine("Basket Cleared.");
                         Console.WriteLine("Press enter to continue");
                         Console.ReadLine();
@@ -153,7 +160,7 @@ namespace CourierKata
 
         public static decimal SpeedyShipping(string parcelInput, decimal shippingPrice, decimal totalShippingPrice, Basket basket)
         {
-            Console.WriteLine("Would you like to add speedy shipping?");
+            Console.WriteLine("Would you like to add speedy shipping? (Reply with a yes or no)");
             Console.WriteLine("This will cost double the price of the parcel.");
             string speedyShippingInput = Console.ReadLine().ToLower();
 
