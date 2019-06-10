@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CourierKata
 {
@@ -31,8 +32,7 @@ namespace CourierKata
                 yield return parcelPrice.Price;
         }
 
-        // TODO Fix This
-        public List<decimal> GetBasketDiscounts()
+        public List<decimal> GetSmallBasketDiscounts()
         {
             decimal smallParcelDiscount = 0;
             List<decimal> smallParcels = new List<decimal>();
@@ -51,24 +51,14 @@ namespace CourierKata
             return smallParcels;
         }
 
-
-
-
-
-
-
-
-        //public decimal SmallParcelDiscount(decimal price)
-        //{
-        //    foreach (var smallParcel in parcels)
-        //    {
-        //        if (smallParcel == "Small Parcel")
-        //        {
-        //            smallParcelTotalPrice += smallParcel.Price;
-        //            smallParcelTotalPrice += 
-        //        }
-        //    }
-        //}
+        public void ClearSmallParcelDiscounts()
+        {
+            foreach (var p in parcels.ToList())
+            {
+                if (p.Name == "4th Small Parcel Discount")
+                    parcels.Remove(p);
+            }
+        }
 
         public void Clear()
         {

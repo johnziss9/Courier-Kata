@@ -12,6 +12,7 @@ namespace CourierKata
             List<decimal> smallParcelDiscount = new List<decimal>();
 
             bool stillAddingParcels = true;
+            bool sDiscountApplied = false;
             decimal sParcelPrice = 0;
             decimal mParcelPrice = 0;
             decimal lParcelPrice = 0;
@@ -65,24 +66,8 @@ namespace CourierKata
                                     sParcelCount++;
                                     basket.AddToBasket("Additional Weight Cost", weightPrice);
                                     weightPrice = 0; // clear weight price
-
-                                    // TODO Fix This
-                                    if (sParcelCount >= 4)
-                                    {
-                                        smallParcelDiscount = basket.GetBasketDiscounts();
-                                    }
-                                        
-
-                                    foreach (var s in smallParcelDiscount)
-                                    {
-                                        sParcelDiscountCount++;
-                                        if (sParcelDiscountCount % 4 == 0)
-                                            basket.AddToBasket("4th Small Parcel Discount", -Math.Abs(s));
-                                    }
-
-
-
-
+                                    basket.ClearSmallParcelDiscounts();
+                                    sDiscountApplied = false;
                                     totalShippingPrice += SpeedyShipping(parcelInput, 3, totalShippingPrice, basket);
                                     break;
                                 case "2":
@@ -138,14 +123,27 @@ namespace CourierKata
                         break;
                     case "view":
                         {
+                            // Applying Small Parcel Mania Discount
+                            while (sDiscountApplied == false)
+                            {
+                                if (sParcelCount >= 4)
+                                {
+                                    smallParcelDiscount = basket.GetSmallBasketDiscounts();
+                                    sDiscountApplied = true;
+                                }
+
+                                foreach (var s in smallParcelDiscount)
+                                {
+                                    sParcelDiscountCount++;
+                                    if (sParcelDiscountCount % 4 == 0)
+                                        basket.AddToBasket("4th Small Parcel Discount", -Math.Abs(s));
+                                }
+                            }
+
                             foreach (string parcel in basket.GetBasketParcels())
                                 Console.WriteLine(parcel);
 
-                            sParcelPrice = sParcelCount * 3;
-                            mParcelPrice = mParcelCount * 8;
-                            lParcelPrice = lParcelCount * 15;
-                            xlParcelPrice = xlParcelCount * 25;
-                            hParcelPrice = hParcelCount * 50;
+                            totalPrice = 0; // Reset Price
 
                             // Basket Calculation
                             foreach (decimal parcelPrice in basket.GetBasketTotalPrice())
