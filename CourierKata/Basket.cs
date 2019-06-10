@@ -60,6 +60,34 @@ namespace CourierKata
             }
         }
 
+        public List<decimal> GetMediumBasketDiscounts()
+        {
+            decimal mediumParcelDiscount = 0;
+            List<decimal> mediumParcels = new List<decimal>();
+
+            for (int i = 0; i <= parcels.Count - 1; i++)
+            {
+                if (parcels[i].Name == "Medium Parcel")
+                {
+                    mediumParcelDiscount += parcels[i].Price + parcels[i + 1].Price + parcels[i + 2].Price;
+                    mediumParcels.Add(mediumParcelDiscount);
+                    mediumParcelDiscount = 0;
+                    i += 2;
+                }
+            }
+
+            return mediumParcels;
+        }
+
+        public void ClearMediumParcelDiscounts()
+        {
+            foreach (var p in parcels.ToList())
+            {
+                if (p.Name == "3rd Medium Parcel Discount")
+                    parcels.Remove(p);
+            }
+        }
+
         public void Clear()
         {
             parcels.Clear();

@@ -10,14 +10,11 @@ namespace CourierKata
         {
             Basket basket = new Basket();
             List<decimal> smallParcelDiscount = new List<decimal>();
+            List<decimal> mediumParcelDiscount = new List<decimal>();
 
             bool stillAddingParcels = true;
             bool sDiscountApplied = false;
-            decimal sParcelPrice = 0;
-            decimal mParcelPrice = 0;
-            decimal lParcelPrice = 0;
-            decimal xlParcelPrice = 0;
-            decimal hParcelPrice = 0;
+            bool mDiscountApplied = false;
             decimal totalPrice = 0;
             decimal totalShippingPrice = 0;
             decimal weightPrice = 0;
@@ -28,6 +25,7 @@ namespace CourierKata
             int xlParcelCount = 0;
             int hParcelCount = 0;
             int sParcelDiscountCount = 0;
+            int mParcelDiscountCount = 0;
 
             while (stillAddingParcels)
             {
@@ -79,6 +77,8 @@ namespace CourierKata
                                     mParcelCount++;
                                     basket.AddToBasket("Additional Weight Cost", weightPrice);
                                     weightPrice = 0; // clear weight price
+                                    basket.ClearMediumParcelDiscounts();
+                                    mDiscountApplied = false;
                                     totalShippingPrice += SpeedyShipping(parcelInput, 8, totalShippingPrice, basket);
                                     break;
                                 case "3":
@@ -124,19 +124,30 @@ namespace CourierKata
                     case "view":
                         {
                             // Applying Small Parcel Mania Discount
-                            while (sDiscountApplied == false)
+                            while (sParcelCount >= 4 && sDiscountApplied == false)
                             {
-                                if (sParcelCount >= 4)
-                                {
-                                    smallParcelDiscount = basket.GetSmallBasketDiscounts();
-                                    sDiscountApplied = true;
-                                }
+                                smallParcelDiscount = basket.GetSmallBasketDiscounts();
+                                sDiscountApplied = true;
 
                                 foreach (var s in smallParcelDiscount)
                                 {
                                     sParcelDiscountCount++;
                                     if (sParcelDiscountCount % 4 == 0)
                                         basket.AddToBasket("4th Small Parcel Discount", -Math.Abs(s));
+                                }
+                            }
+
+                            // Applying Medium Parcel Mania Discount
+                            while (mParcelCount >= 3 && mDiscountApplied == false)
+                            {
+                                mediumParcelDiscount = basket.GetMediumBasketDiscounts();
+                                mDiscountApplied = true;
+
+                                foreach (var s in mediumParcelDiscount)
+                                {
+                                    mParcelDiscountCount++;
+                                    if (mParcelDiscountCount % 3 == 0)
+                                        basket.AddToBasket("3rd Medium Parcel Discount", -Math.Abs(s));
                                 }
                             }
 
