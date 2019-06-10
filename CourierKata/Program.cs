@@ -24,8 +24,6 @@ namespace CourierKata
             int lParcelCount = 0;
             int xlParcelCount = 0;
             int hParcelCount = 0;
-            int sParcelDiscountCount = 0;
-            int mParcelDiscountCount = 0;
 
             while (stillAddingParcels)
             {
@@ -129,12 +127,12 @@ namespace CourierKata
                                 smallParcelDiscount = basket.GetSmallBasketDiscounts();
                                 sDiscountApplied = true;
 
-                                foreach (var s in smallParcelDiscount)
-                                {
-                                    sParcelDiscountCount++;
-                                    if (sParcelDiscountCount % 4 == 0)
-                                        basket.AddToBasket("4th Small Parcel Discount", -Math.Abs(s));
-                                }
+                                var orderedList = smallParcelDiscount.OrderBy(x => x).ToList();
+                                var noOfDiscounts = sParcelCount / 4;
+
+                                // Getting cheapest parcel for discount
+                                for (int i = 0; i <= noOfDiscounts - 1; i++)
+                                    basket.AddToBasket("4th Small Parcel Discount", -Math.Abs(orderedList[i]));
                             }
 
                             // Applying Medium Parcel Mania Discount
@@ -143,14 +141,15 @@ namespace CourierKata
                                 mediumParcelDiscount = basket.GetMediumBasketDiscounts();
                                 mDiscountApplied = true;
 
-                                foreach (var s in mediumParcelDiscount)
-                                {
-                                    mParcelDiscountCount++;
-                                    if (mParcelDiscountCount % 3 == 0)
-                                        basket.AddToBasket("3rd Medium Parcel Discount", -Math.Abs(s));
-                                }
+                                var orderedList = mediumParcelDiscount.OrderBy(x => x).ToList();
+                                var noOfDiscounts = mParcelCount / 3;
+
+                                // Getting cheapest parcel for discount
+                                for (int i = 0; i <= noOfDiscounts - 1; i++)
+                                    basket.AddToBasket("3rd Medium Parcel Discount", -Math.Abs(orderedList[i]));
                             }
 
+                            // Printing items in basket
                             foreach (string parcel in basket.GetBasketParcels())
                                 Console.WriteLine(parcel);
 
