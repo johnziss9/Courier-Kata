@@ -156,8 +156,9 @@ namespace CourierKata
                             totalPrice = 0; // Reset Price
 
                             // Basket Calculation
-                            foreach (decimal parcelPrice in basket.GetBasketTotalPrice())
-                                totalPrice += parcelPrice;
+                            //foreach (decimal parcelPrice in basket.GetBasketTotalPrice())
+                            //    totalPrice += parcelPrice;
+                            totalPrice = basket.GetBasketTotalPrice();
 
                             if (totalPrice != 0)
                             {
@@ -230,6 +231,15 @@ namespace CourierKata
             }
 
             return totalShippingPrice;
+        }
+
+        public static decimal CalculateBasket()
+        {
+            decimal totalPrice = 0;
+
+            // add code here
+
+            return totalPrice;
         }
     }
 }

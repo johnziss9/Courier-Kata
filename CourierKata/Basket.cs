@@ -26,10 +26,20 @@ namespace CourierKata
                 yield return parcel.Name + " $" + parcel.Price;
         }
 
-        public IEnumerable<decimal> GetBasketTotalPrice()
+        public decimal GetBasketTotalPrice()
         {
+            // Original Code
+            //foreach (var parcelPrice in parcels)
+            //    yield return parcelPrice.Price;
+
+            // Try add basket total in this class
+            decimal totalPrice = 0;
+
             foreach (var parcelPrice in parcels)
-                yield return parcelPrice.Price;
+                totalPrice += parcelPrice.Price;
+
+            return totalPrice;
+
         }
 
         public List<decimal> GetSmallBasketDiscounts()

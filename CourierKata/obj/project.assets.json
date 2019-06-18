@@ -688,23 +688,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jzissimou\\.nuget\\packages\\": {},
+    "C:\\Users\\johnz\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jzissimou\\Source\\Repos\\CourierKata\\CourierKata\\CourierKata.csproj",
+      "projectUniqueName": "C:\\Users\\johnz\\source\\repos\\CourierKata\\CourierKata\\CourierKata.csproj",
       "projectName": "CourierKata",
-      "projectPath": "C:\\Users\\jzissimou\\Source\\Repos\\CourierKata\\CourierKata\\CourierKata.csproj",
-      "packagesPath": "C:\\Users\\jzissimou\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jzissimou\\Source\\Repos\\CourierKata\\CourierKata\\obj\\",
+      "projectPath": "C:\\Users\\johnz\\source\\repos\\CourierKata\\CourierKata\\CourierKata.csproj",
+      "packagesPath": "C:\\Users\\johnz\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\johnz\\source\\repos\\CourierKata\\CourierKata\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\jzissimou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\johnz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -712,8 +712,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://tfs.travco.co.uk:3279/nuget/Packages": {},
-        "http://tfs.travco.co.uk:3279/nuget/TravcoDev": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
