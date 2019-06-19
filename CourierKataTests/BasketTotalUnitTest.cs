@@ -17,6 +17,17 @@ namespace CourierKataTests
         }
 
         [TestMethod]
+        public void Test_AddingSpeedyShipping()
+        {
+            Basket basket = new Basket();
+            basket.GetSpeedyShipping("2");
+            basket.GetSpeedyShipping("4");
+            basket.GetSpeedyShipping("1");
+            decimal totalPrice = basket.GetBasketTotalPrice();
+            Assert.AreEqual(totalPrice, 36);
+        }
+
+        [TestMethod]
         public void Test_SmallParcelDiscount()
         {
             Basket basket = new Basket();

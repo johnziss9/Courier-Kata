@@ -48,13 +48,13 @@ namespace CourierKata
                     maxWeight = 1;
                     break;
                 case "2":
-                    maxWeight = 6;
+                    maxWeight = 3;
                     break;
                 case "3":
-                    maxWeight = 10;
+                    maxWeight = 6;
                     break;
                 case "4":
-                    maxWeight = 25;
+                    maxWeight = 10;
                     break;
                 case "5":
                     maxWeight = 50;
@@ -64,29 +64,66 @@ namespace CourierKata
             }
 
             Console.WriteLine("What is the weight of the parcel?");
-            var parcelWeight = Convert.ToDecimal(Console.ReadLine());
+            var weightInput = Console.ReadLine();
+            decimal parcelWeight;
+
+            while (!Decimal.TryParse(weightInput, out parcelWeight) || parcelWeight < 0)
+            {
+                Console.WriteLine("Weight must be above 0. Please enter a valid number.");
+                weightInput = Console.ReadLine();
+            }
+
             var weightPrice = parcelWeight <= maxWeight ? 0 : (parcelWeight - maxWeight) * 2;
             AddToBasket("Additional Weight Cost", weightPrice);
             weightPrice = 0; // Clear weight price
+        }
 
-            //Console.WriteLine("What is the weight of the parcel?");
-            ////var parcelWeight = Convert.ToDecimal(Console.ReadLine());
-            //var weightInput = Console.ReadLine();
-            //decimal parcelWeight;
-            //Decimal.TryParse(weightInput, out parcelWeight);
+        public void GetSpeedyShipping(string parcelInput)
+        {
+            decimal speedyShippingPrice = 0;
 
-            //while (parcelWeight <= 0)
-            //{
-            //    Console.WriteLine("Weight must be above 0. Please enter a valid number.");
-            //    weightInput = Console.ReadLine();
-            //    Decimal.TryParse(weightInput, out parcelWeight);
-            //}
-            //else
-            //{
-            //    var weightPrice = parcelWeight <= maxWeight ? 0 : (parcelWeight - maxWeight) * 2;
-            //    AddToBasket("Additional Weight Cost", weightPrice);
-            //    weightPrice = 0; // Clear weight price
-            //}
+            switch (parcelInput)
+            {
+                case "1":
+                    speedyShippingPrice = 3;
+                    break;
+                case "2":
+                    speedyShippingPrice = 8;
+                    break;
+                case "3":
+                    speedyShippingPrice = 15;
+                    break;
+                case "4":
+                    speedyShippingPrice = 25;
+                    break;
+                case "5":
+                    speedyShippingPrice = 50;
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine("Would you like to add speedy shipping? (Reply with a yes or no)");
+            Console.WriteLine("This will cost double the price of the parcel.");
+            string speedyShippingInput = Console.ReadLine().ToLower();
+
+            while (speedyShippingInput != "yes" && speedyShippingInput != "no")
+            {
+                Console.WriteLine("The output must be either yes or no. Please try again.");
+                speedyShippingInput = Console.ReadLine().ToLower();
+            }
+
+            if (speedyShippingInput == "yes")
+            {
+                AddToBasket("Speedy Shipping", speedyShippingPrice);
+                Console.WriteLine("Speedy Shipping Added.");
+            }
+            else
+            {
+                speedyShippingPrice = 0;
+                AddToBasket("Speedy Shipping", speedyShippingPrice);
+                Console.WriteLine("Parcel Added with no Speedy Shipping.");
+            }
         }
 
         public void GetSmallBasketDiscounts()
