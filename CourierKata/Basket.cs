@@ -38,6 +38,57 @@ namespace CourierKata
 
         }
 
+        public void GetParcelWeight(string parcelInput)
+        {
+            int maxWeight = 0;
+
+            switch (parcelInput)
+            {
+                case "1":
+                    maxWeight = 1;
+                    break;
+                case "2":
+                    maxWeight = 6;
+                    break;
+                case "3":
+                    maxWeight = 10;
+                    break;
+                case "4":
+                    maxWeight = 25;
+                    break;
+                case "5":
+                    maxWeight = 50;
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine("What is the weight of the parcel?");
+            var parcelWeight = Convert.ToDecimal(Console.ReadLine());
+            var weightPrice = parcelWeight <= maxWeight ? 0 : (parcelWeight - maxWeight) * 2;
+            AddToBasket("Additional Weight Cost", weightPrice);
+            weightPrice = 0; // Clear weight price
+
+            //Console.WriteLine("What is the weight of the parcel?");
+            ////var parcelWeight = Convert.ToDecimal(Console.ReadLine());
+            //var weightInput = Console.ReadLine();
+            //decimal parcelWeight;
+            //Decimal.TryParse(weightInput, out parcelWeight);
+
+            //while (parcelWeight <= 0)
+            //{
+            //    Console.WriteLine("Weight must be above 0. Please enter a valid number.");
+            //    weightInput = Console.ReadLine();
+            //    Decimal.TryParse(weightInput, out parcelWeight);
+            //}
+            //else
+            //{
+            //    var weightPrice = parcelWeight <= maxWeight ? 0 : (parcelWeight - maxWeight) * 2;
+            //    AddToBasket("Additional Weight Cost", weightPrice);
+            //    weightPrice = 0; // Clear weight price
+            //}
+        }
+
         public void GetSmallBasketDiscounts()
         {
             decimal smallParcelDiscount = 0;

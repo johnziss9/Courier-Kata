@@ -17,8 +17,6 @@ namespace CourierKata
             bool mDiscountApplied = false;
             decimal totalPrice = 0;
             decimal totalShippingPrice = 0;
-            decimal weightPrice = 0;
-            decimal parcelWeight = 0;
             int sParcelCount = 0;
             int mParcelCount = 0;
             int lParcelCount = 0;
@@ -54,62 +52,42 @@ namespace CourierKata
                             switch (parcelInput)
                             {
                                 case "1":
-                                    Console.WriteLine("What is the weight of the parcel?");
-                                    parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 1 ? 0 : (parcelWeight - 1) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Small Parcel", 3);
                                     sParcelCount++;
-                                    basket.AddToBasket("Additional Weight Cost", weightPrice);
-                                    weightPrice = 0; // clear weight price
+                                    basket.GetParcelWeight(parcelInput);
                                     basket.ClearSmallParcelDiscounts();
                                     sDiscountApplied = false;
                                     totalShippingPrice += SpeedyShipping(parcelInput, 3, totalShippingPrice, basket);
                                     break;
                                 case "2":
-                                    Console.WriteLine("What is the weight of the parcel?");
-                                    parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 3 ? 0 : (parcelWeight - 3) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Medium Parcel", 8);
                                     mParcelCount++;
-                                    basket.AddToBasket("Additional Weight Cost", weightPrice);
-                                    weightPrice = 0; // clear weight price
+                                    basket.GetParcelWeight(parcelInput);
                                     basket.ClearMediumParcelDiscounts();
                                     mDiscountApplied = false;
                                     totalShippingPrice += SpeedyShipping(parcelInput, 8, totalShippingPrice, basket);
                                     break;
                                 case "3":
-                                    Console.WriteLine("What is the weight of the parcel?");
-                                    parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 6 ? 0 : (parcelWeight - 6) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Large Parcel", 15);
                                     lParcelCount++;
-                                    basket.AddToBasket("Additional Weight Cost", weightPrice);
-                                    weightPrice = 0; // clear weight price
+                                    basket.GetParcelWeight(parcelInput);
                                     totalShippingPrice += SpeedyShipping(parcelInput, 15, totalShippingPrice, basket);
                                     break;
                                 case "4":
-                                    Console.WriteLine("What is the weight of the parcel?");
-                                    parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 10 ? 0 : (parcelWeight - 10) * 2;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("XL Parcel", 25);
                                     xlParcelCount++;
-                                    basket.AddToBasket("Additional Weight Cost", weightPrice);
-                                    weightPrice = 0; // clear weight price
+                                    basket.GetParcelWeight(parcelInput);
                                     totalShippingPrice += SpeedyShipping(parcelInput, 25, totalShippingPrice, basket);
                                     break;
                                 case "5":
-                                    Console.WriteLine("What is the weight of the parcel?");
-                                    parcelWeight = Convert.ToDecimal(Console.ReadLine());
-                                    weightPrice += parcelWeight <= 50 ? 0 : (parcelWeight - 50) * 1;
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Heavy Parcel", 50);
                                     hParcelCount++;
-                                    basket.AddToBasket("Additional Weight Cost", weightPrice);
-                                    weightPrice = 0; // clear weight price
+                                    basket.GetParcelWeight(parcelInput);
                                     totalShippingPrice += SpeedyShipping(parcelInput, 50, totalShippingPrice, basket);
                                     break;
                                 default:
@@ -168,7 +146,6 @@ namespace CourierKata
                         lParcelCount = 0;
                         xlParcelCount = 0;
                         hParcelCount = 0;
-                        weightPrice = 0;
                         totalShippingPrice = 0;
                         Console.WriteLine("Basket Cleared.");
                         Console.WriteLine("Press enter to continue");
@@ -215,15 +192,6 @@ namespace CourierKata
             }
 
             return totalShippingPrice;
-        }
-
-        public static decimal CalculateBasket()
-        {
-            decimal totalPrice = 0;
-
-            // add code here
-
-            return totalPrice;
         }
     }
 }
