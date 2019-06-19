@@ -121,32 +121,17 @@ namespace CourierKata
                         break;
                     case "view":
                         {
-                            // Applying Small Parcel Mania Discount
                             while (sParcelCount >= 4 && sDiscountApplied == false)
                             {
-                                smallParcelDiscount = basket.GetSmallBasketDiscounts();
+                                basket.GetSmallBasketDiscounts();
                                 sDiscountApplied = true;
-
-                                var orderedList = smallParcelDiscount.OrderBy(x => x).ToList();
-                                var noOfDiscounts = sParcelCount / 4;
-
-                                // Getting cheapest parcel for discount
-                                for (int i = 0; i <= noOfDiscounts - 1; i++)
-                                    basket.AddToBasket("4th Small Parcel Discount", -Math.Abs(orderedList[i]));
                             }
 
                             // Applying Medium Parcel Mania Discount
                             while (mParcelCount >= 3 && mDiscountApplied == false)
                             {
-                                mediumParcelDiscount = basket.GetMediumBasketDiscounts();
+                                basket.GetMediumBasketDiscounts();
                                 mDiscountApplied = true;
-
-                                var orderedList = mediumParcelDiscount.OrderBy(x => x).ToList();
-                                var noOfDiscounts = mParcelCount / 3;
-
-                                // Getting cheapest parcel for discount
-                                for (int i = 0; i <= noOfDiscounts - 1; i++)
-                                    basket.AddToBasket("3rd Medium Parcel Discount", -Math.Abs(orderedList[i]));
                             }
 
                             // Printing items in basket
@@ -156,10 +141,9 @@ namespace CourierKata
                             totalPrice = 0; // Reset Price
 
                             // Basket Calculation
-                            //foreach (decimal parcelPrice in basket.GetBasketTotalPrice())
-                            //    totalPrice += parcelPrice;
                             totalPrice = basket.GetBasketTotalPrice();
 
+                            // Viewing Total Price
                             if (totalPrice != 0)
                             {
                                 Console.WriteLine("----------");

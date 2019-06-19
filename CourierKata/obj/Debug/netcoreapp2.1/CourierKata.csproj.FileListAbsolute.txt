@@ -19,3 +19,4 @@ C:\Users\johnz\source\repos\CourierKata\CourierKata\obj\Debug\netcoreapp2.1\Cour
 C:\Users\johnz\source\repos\CourierKata\CourierKata\obj\Debug\netcoreapp2.1\CourierKata.AssemblyInfo.cs
 C:\Users\johnz\source\repos\CourierKata\CourierKata\obj\Debug\netcoreapp2.1\CourierKata.dll
 C:\Users\johnz\source\repos\CourierKata\CourierKata\obj\Debug\netcoreapp2.1\CourierKata.pdb
+C:\Users\jzissimou\Source\Repos\CourierKata\CourierKata\obj\Debug\netcoreapp2.1\CourierKata.csprojAssemblyReference.cache

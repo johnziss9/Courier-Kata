@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CourierKata
@@ -28,11 +29,6 @@ namespace CourierKata
 
         public decimal GetBasketTotalPrice()
         {
-            // Original Code
-            //foreach (var parcelPrice in parcels)
-            //    yield return parcelPrice.Price;
-
-            // Try add basket total in this class
             decimal totalPrice = 0;
 
             foreach (var parcelPrice in parcels)
@@ -42,10 +38,11 @@ namespace CourierKata
 
         }
 
-        public List<decimal> GetSmallBasketDiscounts()
+        public void GetSmallBasketDiscounts()
         {
             decimal smallParcelDiscount = 0;
             List<decimal> smallParcels = new List<decimal>();
+            List<decimal> smallParcelsDiscounted = new List<decimal>();
 
             for (int i = 0; i <= parcels.Count - 1; i++)
             {
@@ -58,7 +55,11 @@ namespace CourierKata
                 }
             }
 
-            return smallParcels;
+            var orderedList = smallParcels.OrderBy(x => x).ToList();
+            var noOfDiscounts = orderedList.Count / 4;
+
+            for (int i = 0; i <= noOfDiscounts - 1; i++)
+                AddToBasket("4th Small Parcel Discount", -Math.Abs(orderedList[i]));
         }
 
         public void ClearSmallParcelDiscounts()
@@ -70,10 +71,11 @@ namespace CourierKata
             }
         }
 
-        public List<decimal> GetMediumBasketDiscounts()
+        public void GetMediumBasketDiscounts()
         {
             decimal mediumParcelDiscount = 0;
             List<decimal> mediumParcels = new List<decimal>();
+            List<decimal> mediumParcelsDiscounted = new List<decimal>();
 
             for (int i = 0; i <= parcels.Count - 1; i++)
             {
@@ -86,7 +88,11 @@ namespace CourierKata
                 }
             }
 
-            return mediumParcels;
+            var orderedList = mediumParcels.OrderBy(x => x).ToList();
+            var noOfDiscounts = orderedList.Count / 3;
+
+            for (int i = 0; i <= noOfDiscounts - 1; i++)
+                AddToBasket("3th Medium Parcel Discount", -Math.Abs(orderedList[i]));
         }
 
         public void ClearMediumParcelDiscounts()
