@@ -15,6 +15,7 @@ namespace CourierKata
             bool stillAddingParcels = true;
             bool sDiscountApplied = false;
             bool mDiscountApplied = false;
+            bool mixedDiscountApplied = false;
             decimal totalPrice = 0;
             int sParcelCount = 0;
             int mParcelCount = 0;
@@ -54,15 +55,15 @@ namespace CourierKata
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Small Parcel", 3);
                                     sParcelCount++;
-                                    basket.ClearSmallParcelDiscounts();
-                                    sDiscountApplied = false;
+                                    // basket.ClearSmallParcelDiscounts();
+                                    // sDiscountApplied = false;
                                     break;
                                 case "2":
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Medium Parcel", 8);
                                     mParcelCount++;
-                                    basket.ClearMediumParcelDiscounts();
-                                    mDiscountApplied = false;
+                                    // basket.ClearMediumParcelDiscounts();
+                                    // mDiscountApplied = false;
                                     break;
                                 case "3":
                                     Console.WriteLine("Parcel Added");
@@ -84,6 +85,12 @@ namespace CourierKata
                                     Console.Read();
                                     break;
                             }
+
+                            // Reset discounts when a new parcel gets added
+                            mixedDiscountApplied = false;
+                            sDiscountApplied = false;
+                            mDiscountApplied = false;
+                            basket.ClearMixedParcelDiscounts();
 
                             // Parcel Weight
                             Console.WriteLine("What is the weight of the parcel?");
@@ -117,6 +124,10 @@ namespace CourierKata
                         break;
                     case "view":
                         {
+                            //TODO: Possibly return the discount price and compare before adding to the basket
+                            // Find out how many discounts are allowed in the basket and choose the highest ones
+
+
                             // Applying Small Parcel Mania Discount
                             while (sParcelCount >= 4 && sDiscountApplied == false)
                             {
@@ -129,6 +140,14 @@ namespace CourierKata
                             {
                                 basket.GetMediumBasketDiscounts();
                                 mDiscountApplied = true;
+                            }
+
+                            // Applying Mixed Parcel Mania
+                            int parcelCount = sParcelCount + mParcelCount + lParcelCount + xlParcelCount + hParcelCount;
+                            while (parcelCount >= 5 && mixedDiscountApplied == false)
+                            {
+                                basket.GetFifthParcelFreeDiscount();
+                                mixedDiscountApplied = true;
                             }
 
                             // Printing items in basket

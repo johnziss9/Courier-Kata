@@ -169,6 +169,38 @@ namespace CourierKata
             }
         }
 
+        public void GetFifthParcelFreeDiscount()
+        {
+            decimal fifthParcelDiscount = 0;
+
+            List<decimal> mixedParcels = new List<decimal>();
+            List<decimal> mixParcelsDiscounted = new List<decimal>();
+
+            for (int i = 0; i <= parcels.Count - 1; i++)
+            {
+                fifthParcelDiscount += parcels[i].Price + parcels[i + 1].Price + parcels[i + 2].Price;
+                mixedParcels.Add(fifthParcelDiscount);
+                fifthParcelDiscount = 0;
+                i += 2;
+            }
+
+            var orderedList = mixedParcels.ToList().OrderBy(x => x).ToList();
+            var noOfDiscounts = orderedList.Count / 5;
+
+            for (int i = 0; i <= noOfDiscounts - 1; i++)
+                AddToBasket("5th Parcel Free Discount", -Math.Abs(orderedList[i]));
+
+        }
+
+        public void ClearMixedParcelDiscounts()
+        {
+            foreach (var p in parcels.ToList())
+            {
+                if (p.Name == "5th Parcel Free Discount" || p.Name == "4th Small Parcel Discount" || p.Name == "3rd Medium Parcel Discount")
+                    parcels.Remove(p);
+            }
+        }
+
         public void Clear()
         {
             parcels.Clear();
