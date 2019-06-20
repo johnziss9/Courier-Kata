@@ -54,45 +54,64 @@ namespace CourierKata
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Small Parcel", 3);
                                     sParcelCount++;
-                                    basket.GetParcelWeight(parcelInput);
                                     basket.ClearSmallParcelDiscounts();
                                     sDiscountApplied = false;
-                                    basket.GetSpeedyShipping(parcelInput);
                                     break;
                                 case "2":
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Medium Parcel", 8);
                                     mParcelCount++;
-                                    basket.GetParcelWeight(parcelInput);
                                     basket.ClearMediumParcelDiscounts();
                                     mDiscountApplied = false;
-                                    basket.GetSpeedyShipping(parcelInput);
                                     break;
                                 case "3":
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Large Parcel", 15);
                                     lParcelCount++;
-                                    basket.GetParcelWeight(parcelInput);
-                                    basket.GetSpeedyShipping(parcelInput);
                                     break;
                                 case "4":
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("XL Parcel", 25);
                                     xlParcelCount++;
-                                    basket.GetParcelWeight(parcelInput);
-                                    basket.GetSpeedyShipping(parcelInput);
                                     break;
                                 case "5":
                                     Console.WriteLine("Parcel Added");
                                     basket.AddToBasket("Heavy Parcel", 50);
                                     hParcelCount++;
-                                    basket.GetParcelWeight(parcelInput);
-                                    basket.GetSpeedyShipping(parcelInput);
                                     break;
                                 default:
                                     Console.WriteLine("Wrong input. Please press enter and try again.");
                                     Console.Read();
                                     break;
+                            }
+
+                            // Parcel Weight
+                            Console.WriteLine("What is the weight of the parcel?");
+                            var weightInput = Console.ReadLine();
+                            basket.GetParcelWeight(parcelInput, weightInput);
+
+                            // Speedy Shipping
+                            Console.WriteLine("Would you like to add speedy shipping? (Reply with a yes or no)");
+                            Console.WriteLine("This will cost double the price of the parcel.");
+                            string speedyShippingInput = Console.ReadLine().ToLower();
+
+                            while (speedyShippingInput != "yes" && speedyShippingInput != "no")
+                            {
+                                Console.WriteLine("The output must be either yes or no. Please try again.");
+                                speedyShippingInput = Console.ReadLine().ToLower();
+                            }
+
+                            if (speedyShippingInput == "yes")
+                            {
+                                basket.GetSpeedyShipping(parcelInput);
+                                Console.WriteLine("Speedy Shipping Added. Press enter to continue.");
+                                Console.Read();
+                            }
+                            else
+                            {
+                                basket.AddToBasket("Speedy Shipping", 0);
+                                Console.WriteLine("Parcel Added with no Speedy Shipping. Press enter to continue.");
+                                Console.Read();
                             }
                         }
                         break;

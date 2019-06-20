@@ -38,8 +38,9 @@ namespace CourierKata
 
         }
 
-        public void GetParcelWeight(string parcelInput)
+        public void GetParcelWeight(string parcelInput, string weightInput)
         {
+            decimal parcelWeight;
             int maxWeight = 0;
 
             switch (parcelInput)
@@ -62,10 +63,6 @@ namespace CourierKata
                 default:
                     break;
             }
-
-            Console.WriteLine("What is the weight of the parcel?");
-            var weightInput = Console.ReadLine();
-            decimal parcelWeight;
 
             while (!Decimal.TryParse(weightInput, out parcelWeight) || parcelWeight < 0)
             {
@@ -103,27 +100,7 @@ namespace CourierKata
                     break;
             }
 
-            Console.WriteLine("Would you like to add speedy shipping? (Reply with a yes or no)");
-            Console.WriteLine("This will cost double the price of the parcel.");
-            string speedyShippingInput = Console.ReadLine().ToLower();
-
-            while (speedyShippingInput != "yes" && speedyShippingInput != "no")
-            {
-                Console.WriteLine("The output must be either yes or no. Please try again.");
-                speedyShippingInput = Console.ReadLine().ToLower();
-            }
-
-            if (speedyShippingInput == "yes")
-            {
-                AddToBasket("Speedy Shipping", speedyShippingPrice);
-                Console.WriteLine("Speedy Shipping Added.");
-            }
-            else
-            {
-                speedyShippingPrice = 0;
-                AddToBasket("Speedy Shipping", speedyShippingPrice);
-                Console.WriteLine("Parcel Added with no Speedy Shipping.");
-            }
+            AddToBasket("Speedy Shipping", speedyShippingPrice);
         }
 
         public void GetSmallBasketDiscounts()
@@ -180,7 +157,7 @@ namespace CourierKata
             var noOfDiscounts = orderedList.Count / 3;
 
             for (int i = 0; i <= noOfDiscounts - 1; i++)
-                AddToBasket("3th Medium Parcel Discount", -Math.Abs(orderedList[i]));
+                AddToBasket("3rd Medium Parcel Discount", -Math.Abs(orderedList[i]));
         }
 
         public void ClearMediumParcelDiscounts()
